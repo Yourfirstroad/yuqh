@@ -1,56 +1,14 @@
 <div align="center" id="trendradar">
 
-<a href="https://github.com/sansan0/TrendRadar" title="TrendRadar">
-  <img src="/_image/banner.webp" alt="TrendRadar Banner" width="80%">
-</a>
+# 📰 TrendRadar 行业日报
 
-最快<strong>30秒</strong>部署的热点助手 —— 告别无效刷屏，只看真正关心的新闻资讯
+竞品动态 × 行业资讯监控 —— 每日自动生成日报，在线查看 + 邮件送达
 
-<a href="https://trendradar.sandev.cc/zh/" title="TrendRadar 官方网站"><strong>🌐 官方网站</strong></a> · <a href="https://trendradar.sandev.cc/zh/docs/quick-start/" title="TrendRadar 官网文档"><strong>📖 官网文档</strong></a> · <a href="https://trendradar.sandev.cc/zh/docs/self-hosted-sources/" title="AI 自建热榜数据源"><strong>AI 自建热榜数据源</strong></a>
-
-<a href="https://trendshift.io/repositories/14726" target="_blank"><img src="https://trendshift.io/api/badge/repositories/14726" alt="sansan0%2FTrendRadar | Trendshift" style="width: 250px; height: 55px;" width="250" height="55"/></a>
-
-
-[![GitHub Stars](https://img.shields.io/github/stars/sansan0/TrendRadar?style=flat-square&logo=github&color=yellow)](https://github.com/sansan0/TrendRadar/stargazers)
-[![GitHub Forks](https://img.shields.io/github/forks/sansan0/TrendRadar?style=flat-square&logo=github&color=blue)](https://github.com/sansan0/TrendRadar/network/members)
-[![License](https://img.shields.io/badge/license-GPL--3.0-blue.svg?style=flat-square)](LICENSE)
-[![Version](https://img.shields.io/badge/version-v6.10.0-blue.svg)](https://github.com/sansan0/TrendRadar)
-[![MCP](https://img.shields.io/badge/MCP-v4.1.0-green.svg)](https://github.com/sansan0/TrendRadar)
-[![Docker Pulls](https://img.shields.io/docker/pulls/wantcat/trendradar?style=flat-square&logo=docker&logoColor=white&label=TrendRadar%20Pulls&color=2496ED)](https://hub.docker.com/r/wantcat/trendradar)
-[![Docker Pulls](https://img.shields.io/docker/pulls/wantcat/trendradar-mcp?style=flat-square&logo=docker&logoColor=white&label=MCP%20Pulls&color=2496ED)](https://hub.docker.com/r/wantcat/trendradar-mcp)
-[![RSS](https://img.shields.io/badge/RSS-订阅源支持-orange.svg?style=flat-square&logo=rss&logoColor=white)](#rss-订阅源支持v450-新增)
-[![AI翻译](https://img.shields.io/badge/AI-多语言推送-purple.svg?style=flat-square)](#ai-多语言翻译v520-新增)
-[![MCP Support](https://img.shields.io/badge/MCP-AI分析支持-FF6B6B?style=flat-square&logo=ai&logoColor=white)](#-mcp-客户端)
-[![AI分析推送](https://img.shields.io/badge/AI-分析推送-FF6B6B?style=flat-square&logo=openai&logoColor=white)](#ai-分析推送v500-新增)
-[![AI智能筛选](https://img.shields.io/badge/AI-智能筛选新闻-9B59B6?style=flat-square&logo=openai&logoColor=white)](#ai-智能筛选新闻v650-新增)
-
-[![企业微信通知](https://img.shields.io/badge/企业微信-通知-00D4AA?style=flat-square)](https://work.weixin.qq.com/)
-[![个人微信通知](https://img.shields.io/badge/个人微信-通知-00D4AA?style=flat-square)](https://weixin.qq.com/)
-[![Telegram通知](https://img.shields.io/badge/Telegram-通知-00D4AA?style=flat-square)](https://telegram.org/)
-[![dingtalk通知](https://img.shields.io/badge/钉钉-通知-00D4AA?style=flat-square)](#)
-[![飞书通知](https://img.shields.io/badge/飞书-通知-00D4AA?style=flat-square)](https://www.feishu.cn/)
-[![邮件通知](https://img.shields.io/badge/Email-通知-00D4AA?style=flat-square)](#)
-[![ntfy通知](https://img.shields.io/badge/ntfy-通知-00D4AA?style=flat-square)](https://github.com/binwiederhier/ntfy)
-[![Bark通知](https://img.shields.io/badge/Bark-通知-00D4AA?style=flat-square)](https://github.com/Finb/Bark)
-[![Slack通知](https://img.shields.io/badge/Slack-通知-00D4AA?style=flat-square)](https://slack.com/)
-[![通用Webhook](https://img.shields.io/badge/通用-Webhook-607D8B?style=flat-square&logo=webhook&logoColor=white)](#)
-
-
-[![GitHub Actions](https://img.shields.io/badge/GitHub_Actions-自动化-2088FF?style=flat-square&logo=github-actions&logoColor=white)](#-快速开始)
-[![GitHub Pages](https://img.shields.io/badge/GitHub_Pages-部署-4285F4?style=flat-square&logo=github&logoColor=white)](https://sansan0.github.io/TrendRadar)
-[![Docker](https://img.shields.io/badge/Docker-部署-2496ED?style=flat-square&logo=docker&logoColor=white)](#6-docker-部署)
-[![本地部署](https://img.shields.io/badge/本地-部署-28A745?style=flat-square&logo=python&logoColor=white)](#local-deploy)
-[![Cloudflare Pages](https://img.shields.io/badge/Cloudflare_Pages-部署-F38020?style=flat-square&logo=cloudflare&logoColor=white)](#cloudflare-deploy)
+[**🌐 在线日报**](https://yourfirstroad.github.io/yuqh/) · [**🚀 快速开始**](#-快速开始) · [**🎯 核心功能**](#-核心功能) · [**⚙️ 配置详解**](#配置详解)
 
 </div>
 
-<div align="center">
-
-**中文** | **[English](README-EN.md)**
-
-</div>
-
-> 本项目以轻量，易部署为目标
+> 本项目基于开源项目 [TrendRadar](https://github.com/sansan0/TrendRadar)（GPL-3.0）二次开发，新增「竞品动态」板块与每日行业日报工作流（见文末说明）。
 
 <br>
 
@@ -64,182 +22,7 @@
 |:---:|:---:|:---:|
 | [🚀 **快速开始**](#-快速开始) | [AI 智能分析](#-ai-智能分析) | [⚙️ **配置详解**](#配置详解) |
 | [Docker部署](#6-docker-部署) / [本地部署](#local-deploy) | [MCP客户端](#-mcp-客户端) | [📝 **更新日志**](#-更新日志) |
-| [🎯 **核心功能**](#-核心功能) | [☕ **支持项目**](#-支持项目) | [📚 **项目相关**](#-项目相关) |
-
-</div>
-
-<br>
-
-- 感谢**为项目点 star** 的观众们，**fork** 你所欲也，**star** 我所欲也，两者得兼😍是对开源精神最好的支持
-
-<details>
-<summary>👉 点击展开：<strong>致谢名单</strong> (天使轮荣誉榜 🔥73+🔥 位)</summary>
-
-### 早期支持者致谢
-
-> 💡 **特别说明**：
->
-> 1. **关于名单**：下方表格记录了项目起步阶段（天使轮）的支持者。因早期人工统计繁琐，**难免存在疏漏或记录不全的情况，如有遗漏，实非本意，万望海涵**。
-> 2. **未来规划**：为了将有限的精力回归代码与功能迭代，**即日起不再人工维护此名单**。
->
-> 无论名字是否上榜，你们的每一份支持都是 TrendRadar 能够走到今天的基石。🙏
-
-### 基础设施支持
-
-感谢 **GitHub** 免费提供的基础设施，这是本项目得以**一键 fork**便捷运行的最大前提。
-
-### 数据支持
-
-本项目使用 [newsnow](https://github.com/ourongxing/newsnow) 项目的 API 获取多平台数据，特别感谢作者提供的服务。
-
-经联系，作者表示无需担心服务器压力，但这是基于他的善意和信任。请大家：
-- **前往 [newsnow 项目](https://github.com/ourongxing/newsnow) 点 star 支持**
-- Docker 部署时，请合理控制推送频率，勿竭泽而渔
-
-### 推广助力
-
-> 感谢以下平台和个人的推荐(按时间排列)
-
-- [小众软件](https://mp.weixin.qq.com/s/fvutkJ_NPUelSW9OGK39aA) - 开源软件推荐平台
-- [LinuxDo 社区](https://linux.do/) - 技术爱好者的聚集地
-- [阮一峰周刊](https://github.com/ruanyf/weekly) - 技术圈有影响力的周刊
-
-### 观众支持
-
-> 感谢**给予资金支持**的朋友们，你们的慷慨已化身为键盘旁的零食饮料，陪伴着项目的每一次迭代。
->
-> **关于"一元点赞"的回归**：
-> 随着 v5.0.0 版本的发布，项目迈入了一个新的阶段。为了支持日益增长的 API 成本和咖啡因消耗，"一元点赞"通道现已重新开启。你的每一份心意，都将转化为代码世界里的 Token 和动力。🚀 [前往支持](#-支持项目)
-
-|           点赞人            |  金额  |  日期  |             备注             |
-| :-------------------------: | :----: | :----: | :-----------------------: |
-|           D*5          |  1.8 * 3 | 2025.11.24  |    | 
-|           *鬼          |  1 | 2025.11.17  |    | 
-|           *超          |  10 | 2025.11.17  |    | 
-|           R*w          |  10 | 2025.11.17  | 这 agent 做的牛逼啊,兄弟    | 
-|           J*o          |  1 | 2025.11.17  | 感谢开源,祝大佬事业有成    | 
-|           *晨          |  8.88  | 2025.11.16  | 项目不错,研究学习中    | 
-|           *海          |  1  | 2025.11.15  |    | 
-|           *德          |  1.99  | 2025.11.15  |    | 
-|           *疏          |  8.8  | 2025.11.14  |  感谢开源，项目很棒，支持一下   | 
-|           M*e          |  10  | 2025.11.14  |  开源不易，大佬辛苦了   | 
-|           **柯          |  1  | 2025.11.14  |     | 
-|           *云          |  88  | 2025.11.13  |    好项目，感谢开源  | 
-|           *W          |  6  | 2025.11.13  |      | 
-|           *凯          |  1  | 2025.11.13  |      | 
-|           对*.          |  1  | 2025.11.13  |    Thanks for your TrendRadar  | 
-|           s*y          |  1  | 2025.11.13  |      | 
-|           **翔          |  10  | 2025.11.13  |   好项目，相见恨晚，感谢开源！     | 
-|           *韦          |  9.9  | 2025.11.13  |   TrendRadar超赞，请老师喝咖啡~     | 
-|           h*p          |  5  | 2025.11.12  |   支持中国开源力量，加油！     | 
-|           c*r          |  6  | 2025.11.12  |        | 
-|           a*n          |  5  | 2025.11.12  |        | 
-|           。*c          |  1  | 2025.11.12  |    感谢开源分享    | 
-|           *记          |  1  | 2025.11.11  |        | 
-|           *主          |  1  | 2025.11.10  |        | 
-|           *了          |  10  | 2025.11.09  |        | 
-|           *杰          |  5  | 2025.11.08  |        | 
-|           *点          |  8.80  | 2025.11.07  |   开发不易，支持一下。     | 
-|           Q*Q          |  6.66  | 2025.11.07  |   感谢开源！     | 
-|           C*e          |  1  | 2025.11.05  |        | 
-|           Peter Fan          |  20  | 2025.10.29  |        | 
-|           M*n          |  1  | 2025.10.27  |      感谢开源  | 
-|           *许          |  8.88  | 2025.10.23  |      老师 小白一枚，摸了几天了还没整起来，求教  | 
-|           Eason           |  1  | 2025.10.22  |      还没整明白，但你在做好事  | 
-|           P*n           |  1  | 2025.10.20  |          |
-|           *杰           |  1  | 2025.10.19  |          |
-|           *徐           |  1  | 2025.10.18  |          |
-|           *志           |  1  | 2025.10.17  |          |
-|           *😀           |  10  | 2025.10.16  |     点赞     |
-|           **杰           |  10  | 2025.10.16  |          |
-|           *啸           |  10  | 2025.10.16  |          |
-|           *纪           |  5  | 2025.10.14  | TrendRadar         |
-|           J*d           |  1  | 2025.10.14  | 谢谢你的工具，很好玩...          |
-|           *H           |  1  | 2025.10.14  |           |
-|           那*O           |  10  | 2025.10.13  |           |
-|           *圆           |  1  | 2025.10.13  |           |
-|           P*g           |  6  | 2025.10.13  |           |
-|           Ocean           |  20  | 2025.10.12  |  ...真的太棒了！！！小白级别也能直接用...         |
-|           **培           |  5.2  | 2025.10.2  |  github-yzyf1312:开源万岁         |
-|           *椿           |  3  | 2025.9.23  |  加油，很不错         |
-|           *🍍           |  10  | 2025.9.21  |           |
-|           E*f           |  1  | 2025.9.20  |           |
-|           *记            |  1  | 2025.9.20  |           |
-|           z*u            |  2  | 2025.9.19  |           |
-|           **昊            |  5  | 2025.9.17  |           |
-|           *号            |  1  | 2025.9.15  |           |
-|           T*T            |  2  | 2025.9.15  |  点赞         |
-|           *家            |  10  | 2025.9.10  |           |
-|           *X            |  1.11  | 2025.9.3  |           |
-|           *飙            |  20  | 2025.8.31  |  来自老童谢谢         |
-|           *下            |  1  | 2025.8.30  |           |
-|           2*D            |  88  | 2025.8.13 下午 |           |
-|           2*D            |  1  | 2025.8.13 上午 |           |
-|           S*o            |  1  | 2025.8.05 |   支持一下        |
-|           *侠            |  10  | 2025.8.04 |           |
-|           x*x            |  2  | 2025.8.03 |  trendRadar 好项目 点赞          |
-|           *远            |  1  | 2025.8.01 |            |
-|           *邪            |  5  | 2025.8.01 |            |
-|           *梦            |  0.1  | 2025.7.30 |            |
-|           **龙            |  10  | 2025.7.29 |      支持一下      |
-
-
-</details>
-
-<br>
-
-## 🪄 赞助商
-
-> **[Swiftproxy](https://www.swiftproxy.net/?ref=sansan0)** 专注于提供高质量动态和静态住宅代理，拥有 **9000 万+住宅 IP**，覆盖全球 **220+ 个地区**，支持 **HTTP(S)、SOCKS5** 协议及灵活的 IP 轮换与粘性会话。适用于热点追踪、网页抓取与自动化数据采集，为你提供更稳定可靠的网络访问支持。
->
-> 使用优惠码 **`PROXY90`**，即可享受 **九折优惠**。
-
-<!-- 赞助商横幅尺寸：1400 × 400 px（7:2），沿用 0285a83 的火山引擎横幅规格，以 100% 宽度展示。 -->
-<a href="https://www.swiftproxy.net/?ref=sansan0"><img src="_image/banner-swiftproxy.webp" alt="Swiftproxy 全球住宅代理" width="100%"></a>
-
-[有意赞助？点击查看赞助与合作详情](https://trendradar.sandev.cc/zh/sponsors/)
-
-<br>
-
-<a name="-支持项目"></a>
-
-### 🧩 作者的另一款工具：SanFrame
-
-<table role="presentation">
-<tr>
-<td width="96" align="center">
-<a href="https://ocr.sandev.cc/zh/"><img src="_image/sanframe-icon.webp" alt="SanFrame" width="72" height="72"></a>
-</td>
-<td align="left">
-<strong>多设备资料与剪贴板管理</strong><br>
-集中管理文字、图片与文件，支持搜索、标签、收藏、归档和轻量剪贴板管理。Windows / macOS 多设备之间可通过局域网互传与按需同步，方便资料整理和复用。内置离线 OCR，也可接入 GLM-OCR、HunyuanOCR 等专业识别大模型，并提供截图标注、PDF 处理等功能。无需账号，本地优先。
-<br><br>
-<a href="https://ocr.sandev.cc/zh/"><strong>了解 SanFrame →</strong></a>
-</td>
-</tr>
-</table>
-
-### 🤝 二次开发与引用
-
-如果你在项目中使用或借鉴了本项目的思路、核心代码，**非常欢迎**在 README 或文档中注明来源并附上本仓库链接。
-
-这将有助于项目的持续维护和社区发展，感谢你的尊重与支持！❤️
-
-
-### 💬 交流与反馈
-
-- **GitHub Issues**：适合具体的技术问题。提问时请提供完整信息（截图、错误日志等），有助于快速定位。
-- **公众号交流**：建议优先在相关文章下的留言区交流。若需后台提问，**先点赞/推荐**文章是最好的"敲门砖"，我在后台都能感受到这份心意哟 (´▽`ʃ♡ƪ)。
-- **QQ 群交流**：关注公众号，回复「**交流群**」即可加入。无论你是 AI 小白还是硬核开发者，想求助技术问题还是分享折腾心得，这里都欢迎你。群里主打互助交流和灵感碰撞，入群请先看群公告；提问时描述清楚问题、附上截图，群友有空就会帮忙，大家的实战经验往往比我一个人更快更全面 🤝
-
-> **友情提示**：
-> 本项目为开源分享，非商业产品。把作者当朋友而非客服，沟通效率会更高哦！
-
-<div align="center">
-
-|公众号关注 |
-|:---:|
-| <img src="_image/weixin.png" width="500" title="硅基茶水间"/> |
+| [🎯 **核心功能**](#-核心功能) | [📰 **行业日报**](#-行业日报每日自动生成) | [📄 **许可证**](#-许可证) |
 
 </div>
 
@@ -1027,7 +810,7 @@ frequency_words.txt 文件增加了一个【必须词】功能，使用 + 号
 
 提供基于 Web 的图形化配置界面，无需手动编辑 YAML 文件，通过表单即可完成所有配置项的修改与导出。
 
-👉 **在线体验**：[https://sansan0.github.io/TrendRadar/](https://sansan0.github.io/TrendRadar/)
+👉 **在线体验**：[https://yourfirstroad.github.io/yuqh/](https://yourfirstroad.github.io/yuqh/)
 
 <img src="/_image/editor.png" alt="可视化配置编辑器" width="80%">
 
@@ -1206,7 +989,7 @@ ai_translation:
 
 > **部署方式**：点击 **Use this template** 创建仓库，可部署到 Cloudflare Pages 或 GitHub Pages 等静态托管平台。
 >
-> **💡 提示**：启用 GitHub Pages 可获得在线访问地址，进入仓库 Settings → Pages 即可开启。[效果预览](https://sansan0.github.io/TrendRadar/)
+> **💡 提示**：启用 GitHub Pages 可获得在线访问地址，进入仓库 Settings → Pages 即可开启。[效果预览](https://yourfirstroad.github.io/yuqh/)
 >
 > ⚠️ 原 GitHub Actions 自动存储功能已下线（该方案曾导致 GitHub 服务器负载过高，影响平台稳定性）。
 
@@ -1259,8 +1042,6 @@ GitHub Pages 在国内访问较慢，[Cloudflare Pages](https://pages.cloudflare
 
 ## 🚀 快速开始
 
-> **提醒**：建议先 **[查看最新官方文档](https://github.com/sansan0/TrendRadar?tab=readme-ov-file)**，确保配置步骤是最新的。
-
 ### 请选择适合你的部署方式
 
 #### Ⓐ 方案一：Docker 部署（推荐 🔥）
@@ -1296,8 +1077,8 @@ GitHub Pages 在国内访问较慢，[Cloudflare Pages](https://pages.cloudflare
    **2. 克隆并运行**
 
    ```bash
-   git clone https://github.com/sansan0/TrendRadar.git
-   cd TrendRadar
+   git clone https://github.com/Yourfirstroad/yuqh.git
+   cd yuqh
    uv sync          # 自动安装 Python 和项目依赖
    uv run python -m trendradar
    ```
@@ -2093,7 +1874,6 @@ GitHub Pages 在国内访问较慢，[Cloudflare Pages](https://pages.cloudflare
 
    恭喜！现在你可以开始享受 TrendRadar 带来的高效信息流了。
 
-   💬 **加入社区**：欢迎关注公众号「**[硅基茶水间](#-支持项目)**」，分享你的使用心得和高级玩法。
 
    <br>
 
@@ -2730,8 +2510,8 @@ TrendRadar 提供两个独立的 Docker 镜像，可根据需求选择部署：
 
    ```bash
    # 克隆项目到本地
-   git clone https://github.com/sansan0/TrendRadar.git
-   cd TrendRadar
+   git clone https://github.com/Yourfirstroad/yuqh.git
+   cd yuqh
    ```
 
    > 💡 **说明**：Docker 部署需要的关键目录结构如下：
@@ -2854,8 +2634,8 @@ TrendRadar 提供两个独立的 Docker 镜像，可根据需求选择部署：
 
 ```bash
 # 克隆项目
-git clone https://github.com/sansan0/TrendRadar.git
-cd TrendRadar
+git clone https://github.com/Yourfirstroad/yuqh.git
+cd yuqh
 
 # 修改配置文件
 vim config/config.yaml
@@ -3531,7 +3311,6 @@ AI 分析功能**不是**直接查询网络实时数据，而是分析你**本�
 
 Cherry Studio 提供 GUI 配置界面，5 分钟快速部署，复杂的部分是一键安装的。
 
-**图文部署教程**：现已更新到我的[公众号](#-支持项目)，回复 "mcp" 即可
 
 **详细部署教程**：[README-Cherry-Studio.md](README-Cherry-Studio.md)
 
@@ -3857,49 +3636,9 @@ MCP Inspector 是官方调试工具，用于测试 MCP 连接：
 
 <br>
 
-## 📚 项目相关
-
-> **4 篇文章**：
-
-- [可在该文章下方留言，方便项目作者用手机答疑](https://mp.weixin.qq.com/s/KYEPfTPVzZNWFclZh4am_g)
-- [2个月破 1000 star，我的GitHub项目推广实战经验](https://mp.weixin.qq.com/s/jzn0vLiQFX408opcfpPPxQ)
-- [github fork 运行本项目的注意事项 ](https://mp.weixin.qq.com/s/C8evK-U7onG1sTTdwdW2zg)
-- [基于本项目，如何开展公众号或者新闻资讯类文章写作](https://mp.weixin.qq.com/s/8ghyfDAtQZjLrnWTQabYOQ)
-
->**AI 开发**：
-- 如果你有小众需求，完全可以基于我的项目自行开发，零编程基础的也可以试试
-- 我所有的开源项目或多或少都使用了自己写的**AI辅助软件**来提升开发效率，这款工具已开源
-- **核心功能**：迅速筛选项目代码喂给AI，你只需要补充个人需求即可
-- **项目地址**：https://github.com/sansan0/ai-code-context-helper
-
-### 其余项目
-
-> 📍 毛主席足迹地图 - 交互式动态展示1893-1976年完整轨迹。欢迎诸位同志贡献数据
-
-- https://github.com/sansan0/mao-map
-
-> 哔哩哔哩(bilibili)评论区数据可视化分析软件
-
-- https://github.com/sansan0/bilibili-comment-analyzer
-
-
-## Star History
-
-[![Star History Chart](https://star-history.dera.page/svg?repos=sansan0/TrendRadar)](https://star-history.dera.page/#sansan0/TrendRadar)
-
-<br>
-
 ## 📄 许可证
 
 GPL-3.0 License
-
----
-
-<div align="center">
-
-[🔝 回到顶部](#trendradar)
-
-</div>
 
 ---
 
@@ -3940,3 +3679,11 @@ competitor:
 
 > ⚠️ 注意：`crawler.yml`（小时级监控）带有上游的 7 天签到机制，到期需手动运行 "Check In" 续期；`daily-report.yml` 无此限制，会持续每日生成。
 
+
+---
+
+<div align="center">
+
+[🔝 回到顶部](#trendradar)
+
+</div>
