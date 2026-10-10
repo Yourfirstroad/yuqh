@@ -56,6 +56,8 @@ services:
       - CRON_SCHEDULE=${CRON_SCHEDULE:-*/30 * * * *}
       - RUN_MODE=${RUN_MODE:-cron}
       - IMMEDIATE_RUN=${IMMEDIATE_RUN:-true}
+      # 报告模式（daily=当日汇总 / current=当前榜单 / incremental=增量）
+      - REPORT_MODE=${REPORT_MODE:-daily}
 
   trendradar-mcp:
     build:

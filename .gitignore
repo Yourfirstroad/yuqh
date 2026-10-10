@@ -4,3 +4,6 @@ __pycache__/
 .venv/
 .scratch/
 output/
+
+# 服务器/本地密钥，勿提交（模板见 docker/.env.example）
+docker/.env
