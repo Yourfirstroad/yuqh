@@ -3,7 +3,8 @@ FROM python:3.12-slim-bookworm
 WORKDIR /app
 
 # Latest releases available at https://github.com/aptible/supercronic/releases
-ARG TARGETARCH
+# 构建器未注入 TARGETARCH（老版本 docker compose / 非 buildx）时默认 amd64
+ARG TARGETARCH=amd64
 ENV SUPERCRONIC_VERSION=v0.2.39
 
 RUN set -ex && \
