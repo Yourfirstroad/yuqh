@@ -75,7 +75,7 @@ def _load_report_config(config_data: Dict) -> Dict:
     max_news_env = _get_env_int_or_none("MAX_NEWS_PER_KEYWORD")
 
     return {
-        "REPORT_MODE": report_config.get("mode", "daily"),
+        "REPORT_MODE": _get_env_str("REPORT_MODE") or report_config.get("mode", "daily"),
         "DISPLAY_MODE": report_config.get("display_mode", "keyword"),
         "RANK_THRESHOLD": report_config.get("rank_threshold", 10),
         "SORT_BY_POSITION_FIRST": sort_by_position_env if sort_by_position_env is not None else report_config.get("sort_by_position_first", False),
@@ -219,11 +219,11 @@ def _load_display_config(config_data: Dict) -> Dict:
     standalone = display.get("standalone", {})
 
     # 默认区域顺序
-    default_region_order = ["hotlist", "rss", "new_items", "standalone", "ai_analysis"]
+    default_region_order = ["competitor", "hotlist", "rss", "new_items", "standalone", "ai_analysis"]
     region_order = display.get("region_order", default_region_order)
 
     # 验证 region_order 中的值是否合法
-    valid_regions = {"hotlist", "rss", "new_items", "standalone", "ai_analysis"}
+    valid_regions = {"competitor", "hotlist", "rss", "new_items", "standalone", "ai_analysis"}
     region_order = [r for r in region_order if r in valid_regions]
 
     # 如果过滤后为空，使用默认顺序
@@ -235,6 +235,7 @@ def _load_display_config(config_data: Dict) -> Dict:
         "REGION_ORDER": region_order,
         # 区域开关
         "REGIONS": {
+            "COMPETITOR": regions.get("competitor", True),
             "HOTLIST": regions.get("hotlist", True),
             "NEW_ITEMS": regions.get("new_items", True),
             "RSS": regions.get("rss", True),
@@ -593,6 +594,13 @@ def load_config(config_path: Optional[str] = None) -> Dict[str, Any]:
 
     # 推送内容显示配置
     config["DISPLAY"] = _load_display_config(config_data)
+
+    # 竞品动态配置（生效还需 display.regions.competitor=true）
+    competitor = config_data.get("competitor", {})
+    config["COMPETITOR"] = {
+        "ENABLED": competitor.get("enabled", False),
+        "GROUPS": competitor.get("groups", []),
+    }
 
     # 存储配置
     config["STORAGE"] = _load_storage_config(config_data)

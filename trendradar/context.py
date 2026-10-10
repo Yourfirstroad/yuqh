@@ -132,8 +132,18 @@ class AppContext:
     @property
     def region_order(self) -> List[str]:
         """获取区域显示顺序"""
-        default_order = ["hotlist", "rss", "new_items", "standalone", "ai_analysis"]
+        default_order = ["competitor", "hotlist", "rss", "new_items", "standalone", "ai_analysis"]
         return self.config.get("DISPLAY", {}).get("REGION_ORDER", default_order)
+
+    @property
+    def competitor_groups(self) -> List[str]:
+        """竞品动态词组名列表（需 competitor.enabled 且 display.regions.competitor 均开启）"""
+        if not self.config.get("DISPLAY", {}).get("REGIONS", {}).get("COMPETITOR", True):
+            return []
+        comp = self.config.get("COMPETITOR", {})
+        if not comp.get("ENABLED", False):
+            return []
+        return comp.get("GROUPS", [])
 
     @property
     def filter_method(self) -> str:
@@ -365,6 +375,7 @@ class AppContext:
             ai_analysis=ai_analysis,
             show_new_section=self.show_new_section,
             standalone_data=standalone_data,
+            competitor_groups=self.competitor_groups,
         )
 
     # === 通知内容渲染 ===

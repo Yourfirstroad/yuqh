@@ -3900,5 +3900,40 @@ GPL-3.0 License
 [🔝 回到顶部](#trendradar)
 
 </div>
-my daily report
+
+---
+
+## 📰 行业日报（每日自动生成）
+
+在小时级监控（`crawler.yml`）之外，本仓库增加了**行业日报**能力：每天定时生成一份全天汇总报告，包含「竞品动态」板块、RSS 订阅与 AI 分析，支持在线查看和邮件接收。
+
+### 竞品动态板块
+
+报告顶部独立展示「🎯 竞品动态」板块，将竞品相关词组的热榜命中与 RSS 命中合并归组，不再散落在各区域中。
+
+配置方式（[config/config.yaml](config/config.yaml)）：
+
+```yaml
+competitor:
+  enabled: true
+  groups:            # 词组名须与 config/frequency_words.txt 中的 [词组名] 一致
+    - "国内药企"
+    - "跨国药企"
+    - "交易与融资"
+```
+
+调整追踪对象：编辑 `config/frequency_words.txt` 中对应词组的公司名/别名即可；增删板块：修改上面的 `groups` 列表。
+
+### 每日日报工作流（daily-report.yml）
+
+- **定时**：每天北京时间 08:05（UTC 00:05）自动运行，也可在 Actions 页面手动触发
+- **模式**：以 `REPORT_MODE=daily`（全天汇总）运行，页面标题显示「行业日报」
+- **线上查看**：报告提交回仓库根目录 `index.html`，通过 GitHub Pages 访问
+  - 一次性设置：仓库 **Settings → Pages → Source 选 "Deploy from a branch" → 分支选 master / 目录选 /(root)**
+- **邮件接收**：配置以下 GitHub Secrets 后，日报生成时自动发送 HTML 邮件
+  - `EMAIL_FROM`（发件邮箱）、`EMAIL_PASSWORD`（SMTP 授权码，非登录密码）、`EMAIL_TO`（收件邮箱，多个用分号分隔）
+  - 可选：`EMAIL_SMTP_SERVER` / `EMAIL_SMTP_PORT`（不填则按邮箱后缀自动识别，支持 QQ/163/Gmail/Outlook 等）
+- **AI 分析**：需配置 `AI_API_KEY`（可选 `AI_MODEL` / `AI_API_BASE`），未配置时自动跳过 AI 区域
+
+> ⚠️ 注意：`crawler.yml`（小时级监控）带有上游的 7 天签到机制，到期需手动运行 "Check In" 续期；`daily-report.yml` 无此限制，会持续每日生成。
 
