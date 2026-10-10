@@ -84,6 +84,9 @@ platforms:
     - id: "cls-hot"
       name: "财联社热门"
       expected_domain: "cls.cn"
+    - id: "cls-telegraph"
+      name: "财联社电报"
+      expected_domain: "cls.cn"
     - id: "ifeng"
       name: "凤凰网"
       expected_domain: "ifeng.com"
@@ -145,6 +148,89 @@ rss:
       url: "https://www.nature.com/nbt.rss"
       max_age_days: 7
 
+    # ── 竞品搜索流（Google 新闻搜索的 RSS 输出，覆盖国内外媒体）──
+    # 原理：把关键词变成订阅源，任何公司/行业都能跟踪
+    # 自定义格式：https://news.google.com/rss/search?q=<URL编码的关键词>&hl=zh-CN&gl=CN&ceid=CN:zh-Hans
+    # 关键词支持 OR（如 "公司中文名 OR 英文名"），国内网络与 GitHub Actions 均可用
+    # 注意：搜索流命中的新闻会按 frequency_words.txt 词组自动归类（竞品词组归入「竞品动态」板块）
+
+    # AI 制药同行
+    - id: "search-insilico"
+      name: "搜索·英矽智能"
+      url: "https://news.google.com/rss/search?q=%E8%8B%B1%E7%9F%BD%E6%99%BA%E8%83%BD%20OR%20Insilico&hl=zh-CN&gl=CN&ceid=CN:zh-Hans"
+      max_age_days: 3
+
+    - id: "search-xtalpi"
+      name: "搜索·晶泰科技"
+      url: "https://news.google.com/rss/search?q=%E6%99%B6%E6%B3%B0%E7%A7%91%E6%8A%80%20OR%20XtalPi&hl=zh-CN&gl=CN&ceid=CN:zh-Hans"
+      max_age_days: 3
+
+    - id: "search-dptech"
+      name: "搜索·深势科技"
+      url: "https://news.google.com/rss/search?q=%E6%B7%B1%E5%8A%BF%E7%A7%91%E6%8A%80%20OR%20%22DP%20Technology%22&hl=zh-CN&gl=CN&ceid=CN:zh-Hans"
+      max_age_days: 3
+
+    - id: "search-stonewise"
+      name: "搜索·望石智慧"
+      url: "https://news.google.com/rss/search?q=%E6%9C%9B%E7%9F%B3%E6%99%BA%E6%85%A7%20OR%20StoneWise&hl=zh-CN&gl=CN&ceid=CN:zh-Hans"
+      max_age_days: 3
+
+    # 国内头部药企
+    - id: "search-hengrui"
+      name: "搜索·恒瑞医药"
+      url: "https://news.google.com/rss/search?q=%E6%81%92%E7%91%9E%E5%8C%BB%E8%8D%AF&hl=zh-CN&gl=CN&ceid=CN:zh-Hans"
+      max_age_days: 3
+
+    - id: "search-beigene"
+      name: "搜索·百济神州"
+      url: "https://news.google.com/rss/search?q=%E7%99%BE%E6%B5%8E%E7%A5%9E%E5%B7%9E%20OR%20BeiGene&hl=zh-CN&gl=CN&ceid=CN:zh-Hans"
+      max_age_days: 3
+
+    - id: "search-innovent"
+      name: "搜索·信达生物"
+      url: "https://news.google.com/rss/search?q=%E4%BF%A1%E8%BE%BE%E7%94%9F%E7%89%A9%20OR%20Innovent&hl=zh-CN&gl=CN&ceid=CN:zh-Hans"
+      max_age_days: 3
+
+    - id: "search-wuxi"
+      name: "搜索·药明康德"
+      url: "https://news.google.com/rss/search?q=%E8%8D%AF%E6%98%8E%E5%BA%B7%E5%BE%B7%20OR%20%22WuXi%20AppTec%22&hl=zh-CN&gl=CN&ceid=CN:zh-Hans"
+      max_age_days: 3
+
+    - id: "search-akeso"
+      name: "搜索·康方生物"
+      url: "https://news.google.com/rss/search?q=%E5%BA%B7%E6%96%B9%E7%94%9F%E7%89%A9%20OR%20Akeso&hl=zh-CN&gl=CN&ceid=CN:zh-Hans"
+      max_age_days: 3
+
+    # 跨国药企
+    - id: "search-pfizer"
+      name: "搜索·辉瑞"
+      url: "https://news.google.com/rss/search?q=%E8%BE%89%E7%91%9E%20OR%20Pfizer&hl=zh-CN&gl=CN&ceid=CN:zh-Hans"
+      max_age_days: 3
+
+    - id: "search-roche"
+      name: "搜索·罗氏"
+      url: "https://news.google.com/rss/search?q=%E7%BD%97%E6%B0%8F%20OR%20Roche&hl=zh-CN&gl=CN&ceid=CN:zh-Hans"
+      max_age_days: 3
+
+    - id: "search-novartis"
+      name: "搜索·诺华"
+      url: "https://news.google.com/rss/search?q=%E8%AF%BA%E5%8D%8E%20OR%20Novartis&hl=zh-CN&gl=CN&ceid=CN:zh-Hans"
+      max_age_days: 3
+
+    - id: "search-lilly"
+      name: "搜索·礼来"
+      url: "https://news.google.com/rss/search?q=%E7%A4%BC%E6%9D%A5%20OR%20Lilly&hl=zh-CN&gl=CN&ceid=CN:zh-Hans"
+      max_age_days: 3
+
+    - id: "search-msd"
+      name: "搜索·默沙东"
+      url: "https://news.google.com/rss/search?q=%E9%BB%98%E6%B2%99%E4%B8%9C%20OR%20MSD&hl=zh-CN&gl=CN&ceid=CN:zh-Hans"
+      max_age_days: 3
+
+    - id: "search-astrazeneca"
+      name: "搜索·阿斯利康"
+      url: "https://news.google.com/rss/search?q=%E9%98%BF%E6%96%AF%E5%88%A9%E5%BA%B7%20OR%20AstraZeneca&hl=zh-CN&gl=CN&ceid=CN:zh-Hans"
+      max_age_days: 3
 
     # 自定义源示例
     # - id: "custom-feed"
@@ -191,6 +277,7 @@ competitor:
     - "国内药企"
     - "跨国药企"
     - "交易与融资"
+    - "AI 制药"
 
 
 # ===============================================================
