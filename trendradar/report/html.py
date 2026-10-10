@@ -67,8 +67,9 @@ def render_html_content(
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@600;700;900&display=swap" rel="stylesheet">
         <style>
-            /* finesse · register=product · A=paper+vermilion · B=serif-900/sans-400 · C=single-card-report
-             * D=static · E=newsprint-editorial · SOUL=6 SPECTACLE=1 DENSITY=8 */
+            /* finesse · register=product · sub=ops-console · A=paper+vermilion · B=serif-900/sans-400
+             * C=three-column-console(rail|stream|aside) · D=static(feedback-only) · E=值班控制台/回执
+             * SOUL=6 SPECTACLE=1 DENSITY=8 · 三栏壳参照 finesse examples/relay-agent-console.html */
             :root {
                 --page: #f4f1e8;
                 --card: #fdfbf5;
@@ -100,6 +101,13 @@ def render_html_content(
                 --shadow-card: 0 1px 2px rgba(53, 45, 30, 0.05), 0 10px 30px rgba(53, 45, 30, 0.08);
                 --shadow-menu: 0 10px 28px rgba(53, 45, 30, 0.18);
                 --font-serif: 'Noto Serif SC', 'Source Han Serif SC', 'Songti SC', 'STSong', 'SimSun', serif;
+                /* 左轨（深色导航栏）：色相跟随暖纸面，不随暗色模式翻转 */
+                --rail: #1d1913;
+                --rail-2: #29231b;
+                --rail-ink: #a89c8a;
+                --rail-ink-2: #6f665b;
+                --rail-ink-on: #f4f1e8;
+                --rail-line: rgba(244, 241, 232, 0.08);
             }
 
             * { box-sizing: border-box; }
@@ -108,43 +116,280 @@ def render_html_content(
             body {
                 font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
                 margin: 0;
-                padding: 16px;
+                padding: 0;
                 background: var(--page);
                 color: var(--ink);
                 line-height: 1.5;
             }
 
-            .container {
-                max-width: 600px;
-                margin: 0 auto;
-                background: var(--card);
-                border: 1px solid var(--line-soft);
-                border-radius: 4px;
-                overflow: hidden;
-                box-shadow: var(--shadow-card);
+            /* ===== 三栏控制台壳：深色导航轨 | 报告流 | 信息面板 ===== */
+            .app {
+                display: grid;
+                grid-template-columns: 248px minmax(0, 1fr) 300px;
+                min-height: 100vh;
+                align-items: start;
             }
 
-            /* ===== 报头 ===== */
+            /* 左轨：板块目录 + 词组快速跳转 */
+            .rail {
+                position: sticky;
+                top: 0;
+                height: 100vh;
+                display: flex;
+                flex-direction: column;
+                background: var(--rail);
+                color: var(--rail-ink);
+                border-right: 1px solid var(--rail-line);
+            }
+
+            .brand {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                padding: 16px 18px;
+                border-bottom: 1px solid var(--rail-line);
+                flex: none;
+            }
+
+            .brand .mk {
+                width: 28px;
+                height: 28px;
+                border-radius: 8px;
+                flex: none;
+                display: grid;
+                place-items: center;
+                background: var(--accent);
+                color: var(--on-accent);
+                font-family: var(--font-serif);
+                font-weight: 900;
+                font-size: 14px;
+            }
+
+            .brand b {
+                color: var(--rail-ink-on);
+                font-size: 15px;
+                font-weight: 700;
+                letter-spacing: 0.02em;
+                font-family: var(--font-serif);
+            }
+
+            .brand .dt {
+                margin-left: auto;
+                font-size: 11px;
+                color: var(--rail-ink-2);
+                font-variant-numeric: tabular-nums;
+            }
+
+            .rail-scroll {
+                flex: 1;
+                min-height: 0;
+                overflow-y: auto;
+                padding: 6px 10px 12px;
+            }
+            .rail-scroll::-webkit-scrollbar { width: 6px; }
+            .rail-scroll::-webkit-scrollbar-thumb { background: var(--rail-2); border-radius: 99px; }
+
+            .rail-grp {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                font-size: 10.5px;
+                letter-spacing: 0.16em;
+                color: var(--rail-ink-2);
+                padding: 14px 8px 8px;
+                font-weight: 600;
+            }
+
+            .rail-grp .c {
+                margin-left: auto;
+                letter-spacing: 0;
+                font-size: 11px;
+                background: var(--rail-2);
+                padding: 1px 6px;
+                border-radius: 99px;
+                font-variant-numeric: tabular-nums;
+            }
+
+            .nav-item {
+                position: relative;
+                display: flex;
+                align-items: baseline;
+                gap: 8px;
+                width: 100%;
+                text-align: left;
+                padding: 8px 10px 8px 22px;
+                border: none;
+                border-radius: 8px;
+                background: none;
+                cursor: pointer;
+                color: var(--rail-ink-on);
+                font-family: inherit;
+                font-size: 13px;
+                font-weight: 600;
+                transition: background 0.18s ease;
+            }
+
+            .nav-item:hover { background: var(--rail-2); }
+            .nav-item.on { background: var(--rail-2); }
+            /* 选中态用伪元素做左标，不用 border-left 侧边彩条 */
+            .nav-item.on::after {
+                content: "";
+                position: absolute;
+                left: 0;
+                top: 7px;
+                bottom: 7px;
+                width: 3px;
+                border-radius: 0 3px 3px 0;
+                background: var(--accent);
+            }
+
+            .nav-item .dot {
+                position: absolute;
+                left: 9px;
+                top: 14px;
+                width: 5px;
+                height: 5px;
+                border-radius: 50%;
+                background: var(--rail-ink-2);
+            }
+            .nav-item.on .dot { background: var(--accent); }
+
+            .nav-item .c {
+                margin-left: auto;
+                font-size: 11px;
+                color: var(--rail-ink-2);
+                font-weight: 400;
+                font-variant-numeric: tabular-nums;
+                white-space: nowrap;
+            }
+
+            .nav-item.sub {
+                padding-left: 30px;
+                font-size: 12px;
+                font-weight: 500;
+                color: var(--rail-ink);
+            }
+            .nav-item.sub .dot { left: 17px; top: 13px; width: 4px; height: 4px; }
+
+            .rail-foot {
+                flex: none;
+                padding: 12px 18px;
+                border-top: 1px solid var(--rail-line);
+                font-size: 11px;
+                color: var(--rail-ink-2);
+                line-height: 1.7;
+            }
+            .rail-foot a { color: var(--rail-ink); text-decoration: none; }
+            .rail-foot a:hover { color: var(--rail-ink-on); text-decoration: underline; }
+
+            /* 中栏：报告流（纸面） */
+            .main {
+                min-width: 0;
+                min-height: 100vh;
+                background: var(--card);
+                border-right: 1px solid var(--line-soft);
+            }
+
+            .container { max-width: 760px; margin: 0 auto; padding-top: 22px; }
+
+            /* 右栏：今日概览 / 监控覆盖 / 回执 */
+            .aside {
+                position: sticky;
+                top: 0;
+                height: 100vh;
+                overflow-y: auto;
+                padding: 16px 14px;
+            }
+            .aside::-webkit-scrollbar { width: 6px; }
+            .aside::-webkit-scrollbar-thumb { background: var(--line); border-radius: 99px; }
+
+            .aside-card {
+                background: var(--card);
+                border: 1px solid var(--line-soft);
+                border-radius: 10px;
+                box-shadow: var(--shadow-card);
+                margin-bottom: 14px;
+                overflow: hidden;
+            }
+
+            .aside-card .ch {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                padding: 11px 14px 9px;
+                font-size: 12.5px;
+                font-weight: 700;
+                letter-spacing: 0.02em;
+                border-bottom: 1px solid var(--line-soft);
+            }
+
+            .aside-card .ch .tag {
+                margin-left: auto;
+                font-size: 10.5px;
+                font-weight: 500;
+                color: var(--ink-3);
+                font-variant-numeric: tabular-nums;
+            }
+
+            .aside-card .cb { padding: 4px 14px 10px; }
+
+            .aside-card .info-item {
+                display: flex;
+                align-items: baseline;
+                justify-content: space-between;
+                gap: 12px;
+                padding: 7px 0;
+                border-bottom: 1px dashed var(--line-soft);
+            }
+            .aside-card .info-item:last-child { border-bottom: none; }
+            .aside-card .info-label { font-size: 12px; color: var(--ink-3); letter-spacing: 0.04em; }
+            .aside-card .info-value {
+                font-size: 13px;
+                font-weight: 600;
+                font-variant-numeric: tabular-nums;
+                text-align: right;
+            }
+
+            .receipt-line {
+                font-size: 11px;
+                color: var(--ink-3);
+                line-height: 1.8;
+                padding: 2px 6px;
+            }
+            .receipt-line a { color: var(--accent); text-decoration: none; }
+            .receipt-line a:hover { text-decoration: underline; text-underline-offset: 2px; }
+
+            /* 锚点跳转留白（避开顶部的 Tab 栏） */
+            [id^="region-"], .word-group[id] { scroll-margin-top: 16px; }
+
+            @media (prefers-reduced-motion: no-preference) {
+                html { scroll-behavior: smooth; }
+            }
+
+            /* ===== 报头（台头，纤细深色横带） ===== */
             .header {
                 background: var(--header-bg);
                 color: var(--header-ink);
-                padding: 36px 24px 28px;
-                text-align: center;
+                padding: 18px 22px;
+                display: flex;
+                align-items: center;
+                gap: 18px;
                 position: relative;
-                overflow: visible;
+                overflow: hidden;
                 border-bottom: 3px solid var(--accent);
+                border-radius: 10px;
             }
 
             .header-watermark {
                 position: absolute;
                 top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
+                right: 180px;
+                transform: translateY(-50%);
                 font-family: var(--font-serif);
-                font-size: clamp(40px, 8vw, 80px);
+                font-size: clamp(28px, 4vw, 44px);
                 font-weight: 900;
                 letter-spacing: 0.05em;
-                color: rgba(244, 241, 232, 0.09);
+                color: rgba(244, 241, 232, 0.07);
                 pointer-events: none;
                 z-index: 1;
                 white-space: nowrap;
@@ -154,13 +399,31 @@ def render_html_content(
                 user-select: none;
             }
 
+            .header-text { position: relative; z-index: 2; min-width: 0; }
+
+            .header-title {
+                font-family: var(--font-serif);
+                font-size: 20px;
+                font-weight: 900;
+                letter-spacing: 0.06em;
+                margin: 0;
+            }
+
+            .header-meta {
+                font-size: 12px;
+                opacity: 0.62;
+                margin-top: 3px;
+                font-variant-numeric: tabular-nums;
+                letter-spacing: 0.02em;
+            }
+
             .save-buttons {
-                position: absolute;
-                top: 16px;
-                right: 16px;
+                position: relative;
+                margin-left: auto;
                 display: flex;
                 gap: 8px;
                 z-index: 10;
+                flex: none;
             }
 
             .save-btn-group {
@@ -272,41 +535,6 @@ def render_html_content(
             .footer-link:focus-visible {
                 outline: 2px solid var(--accent);
                 outline-offset: 1px;
-            }
-
-            .header-title {
-                font-family: var(--font-serif);
-                font-size: 26px;
-                font-weight: 900;
-                letter-spacing: 0.06em;
-                margin: 0 0 20px 0;
-                position: relative;
-                z-index: 2;
-            }
-
-            .header-info {
-                position: relative;
-                z-index: 2;
-                display: grid;
-                grid-template-columns: 1fr 1fr;
-                gap: 16px;
-                font-size: 14px;
-            }
-
-            .info-item { text-align: center; }
-
-            .info-label {
-                display: block;
-                font-size: 11px;
-                letter-spacing: 0.12em;
-                opacity: 0.6;
-                margin-bottom: 5px;
-            }
-
-            .info-value {
-                font-weight: 600;
-                font-size: 16px;
-                font-variant-numeric: tabular-nums;
             }
 
             .content { padding: 26px; }
@@ -938,7 +1166,6 @@ def render_html_content(
 
             /* 宽屏模式 - 基础 */
             body.wide-mode .container { max-width: 1200px; }
-            body.wide-mode .header-info { grid-template-columns: repeat(4, 1fr); }
             body.wide-mode .content { padding: 32px 40px; }
 
             /* 宽屏模式 - RSS feed-group 两列 */
@@ -1286,38 +1513,44 @@ def render_html_content(
                 }
             }
 
+            /* 窄屏逐级收栏：右栏先收，左轨后收，退回单栏报告 */
+            @media (max-width: 1240px) {
+                .app { grid-template-columns: 232px minmax(0, 1fr); }
+                .aside { display: none; }
+                .main { border-right: none; }
+            }
+
+            @media (max-width: 860px) {
+                .app { grid-template-columns: minmax(0, 1fr); }
+                .rail { display: none; }
+            }
+
             @media (max-width: 480px) {
-                body { padding: 12px; }
-                .header { padding: 28px 20px 22px; }
+                .header { padding: 14px 16px; flex-wrap: wrap; }
+                .container { padding-top: 14px; }
                 .content { padding: 20px; }
                 .footer { padding: 16px 20px; }
-                .header-info { grid-template-columns: 1fr; gap: 12px; }
                 .news-header { gap: 6px; }
                 .news-content { padding-right: 45px; }
                 .news-item { gap: 8px; }
                 .new-item { gap: 8px; }
                 .news-number { width: 20px; height: 20px; font-size: 12px; }
-                .save-buttons {
-                    position: static;
-                    margin-bottom: 16px;
-                    display: flex;
-                    gap: 8px;
-                    justify-content: center;
-                    width: 100%;
-                }
-                .save-btn-group { flex: 1; }
-                .save-btn {
-                    width: 100%;
-                    border-radius: 3px 0 0 3px;
-                }
+                .save-buttons { width: 100%; justify-content: flex-end; }
             }
         </style>
     </head>
     <body>
         <div class="reading-progress"></div>
+        <div class="app">
+        <!--RAIL-->
+        <div class="main">
         <div class="container">
             <div class="header">
                 <div class="header-watermark">TrendRadar</div>
+                <div class="header-text">
+                    <div class="header-title">热点新闻分析</div>
+                    <div class="header-meta"><!--HEADER_META--></div>
+                </div>
                 <div class="save-buttons">
                     <button class="toggle-wide-btn" onclick="toggleWideMode()" title="切换宽屏/窄屏">⛶</button>
                     <button class="toggle-dark-btn" onclick="toggleDarkMode()" title="切换暗色/亮色">☽</button>
@@ -1331,8 +1564,12 @@ def render_html_content(
                         </div>
                     </div>
                 </div>
-                <div class="header-title">热点新闻分析</div>
-                <div class="header-info">"""
+            </div>
+
+            <div class="content">
+                <div class="search-bar">
+                    <input type="text" class="search-input" placeholder="搜索新闻标题..." oninput="handleSearch(this.value)">
+                </div>"""
 
     # 全天汇总（日报）模式下，页面标题显示为「行业日报」
     if mode == "daily":
@@ -1356,6 +1593,12 @@ def render_html_content(
     else:
         mode_display = "全天汇总"
 
+    # 报头元信息行：报告类型 · 生成时间
+    html = html.replace(
+        "<!--HEADER_META-->",
+        f"{mode_display} · {now.strftime('%Y-%m-%d %H:%M')}",
+    )
+
     # 计算各项数据
     hot_news_count = sum(len(stat["titles"]) for stat in report_data["stats"])
     new_count = report_data.get("total_new_count", 0)
@@ -1371,22 +1614,26 @@ def render_html_content(
     rss_source_failed = report_data.get("rss_source_failed", 0)
     rss_source_success = max(0, rss_source_total - rss_source_failed)
 
+    # 右栏统计卡片：1-4 为「今日概览」，5-8 为「监控覆盖」
+    overview_items = ""
+    coverage_items = ""
+
     # 1. 报告类型
-    html += f"""
+    overview_items += f"""
                     <div class="info-item">
                         <span class="info-label">报告类型</span>
                         <span class="info-value">{mode_display}</span>
                     </div>"""
 
     # 2. 生成时间
-    html += f"""
+    overview_items += f"""
                     <div class="info-item">
                         <span class="info-label">生成时间</span>
                         <span class="info-value">{now.strftime("%m-%d %H:%M")}</span>
                     </div>"""
 
     # 3. 热榜命中
-    html += f"""
+    overview_items += f"""
                     <div class="info-item">
                         <span class="info-label">热榜命中</span>
                         <span class="info-value">{hot_news_count} / {hotlist_total}</span>
@@ -1397,7 +1644,7 @@ def render_html_content(
         rss_value = f"{rss_matched} / {rss_total}"
     else:
         rss_value = "未启用"
-    html += f"""
+    overview_items += f"""
                     <div class="info-item">
                         <span class="info-label">RSS 命中</span>
                         <span class="info-value">{rss_value}</span>
@@ -1408,7 +1655,7 @@ def render_html_content(
         platform_value = f"{platform_success}/{platform_total}"
     else:
         platform_value = "--"
-    html += f"""
+    coverage_items += f"""
                     <div class="info-item">
                         <span class="info-label">热榜平台</span>
                         <span class="info-value">{platform_value}</span>
@@ -1419,7 +1666,7 @@ def render_html_content(
         rss_source_value = f"{rss_source_success}/{rss_source_total}"
     else:
         rss_source_value = "--"
-    html += f"""
+    coverage_items += f"""
                     <div class="info-item">
                         <span class="info-label">RSS 源</span>
                         <span class="info-value">{rss_source_value}</span>
@@ -1429,7 +1676,7 @@ def render_html_content(
     rss_new_count = sum(len(stat.get("titles", [])) for stat in (rss_new_items or []))
     total_new = new_count + rss_new_count
     new_value = f"{new_count} + {rss_new_count}" if total_new > 0 else "0"
-    html += f"""
+    coverage_items += f"""
                     <div class="info-item">
                         <span class="info-label">新增热点</span>
                         <span class="info-value">{new_value}</span>
@@ -1456,20 +1703,11 @@ def render_html_content(
             ai_value = "待配置"
     else:
         ai_value = "未启用"
-    html += f"""
+    coverage_items += f"""
                     <div class="info-item">
                         <span class="info-label">AI 分析</span>
                         <span class="info-value">{ai_value}</span>
                     </div>"""
-
-    html += """
-                </div>
-            </div>
-
-            <div class="content">
-                <div class="search-bar">
-                    <input type="text" class="search-input" placeholder="搜索新闻标题..." oninput="handleSearch(this.value)">
-                </div>"""
 
     # 处理失败ID错误信息
     if report_data["failed_ids"]:
@@ -1485,18 +1723,29 @@ def render_html_content(
 
     # 拆分竞品动态词组：命中的热榜词组从热榜区域抽出，归入「竞品动态」板块
     # （platform 显示模式下 word 是平台名，不做竞品拆分）
+    # 0 命中的词组不渲染：空标签页没有信息量，还会让板块总数与分组数对不上
     if competitor_groups and display_mode == "keyword":
-        comp_stats = [s for s in report_data["stats"] if s["word"] in competitor_groups]
-        hotlist_stats = [s for s in report_data["stats"] if s["word"] not in competitor_groups]
+        comp_stats = [
+            s for s in report_data["stats"]
+            if s["word"] in competitor_groups and s.get("count", 0) > 0
+        ]
+        hotlist_stats = [
+            s for s in report_data["stats"]
+            if s["word"] not in competitor_groups and s.get("count", 0) > 0
+        ]
     else:
         comp_stats = []
-        hotlist_stats = report_data["stats"]
+        hotlist_stats = [s for s in report_data["stats"] if s.get("count", 0) > 0]
 
-    def render_word_group_sections(stats_list: List[Dict], with_tabs: bool = True) -> str:
+    def render_word_group_sections(
+        stats_list: List[Dict], with_tabs: bool = True, id_prefix: str = ""
+    ) -> str:
         """渲染关键词分组区块（热榜区域与竞品动态板块共用）
 
         with_tabs=False 时不生成 Tab 栏，分组块也不带 data-tab-index
         （避免与热榜区域的 Tab 筛选联动串扰）
+        id_prefix 非空时为每个分组块生成 id="{id_prefix}-{序号}" 锚点，
+        供左轨导航跳转
         """
         if not stats_list:
             return ""
@@ -1529,8 +1778,9 @@ def render_html_content(
             escaped_word = html_escape(stat["word"])
 
             tab_attr = f'data-tab-index="{i - 1}"' if with_tabs else ""
+            id_attr = f'id="{id_prefix}-{i}"' if id_prefix else ""
             stats_html += f"""
-                <div class="word-group" {tab_attr}>
+                <div class="word-group" {tab_attr} {id_attr}>
                     <div class="word-header">
                         <div class="word-info">
                             <div class="word-name">{escaped_word}</div>
@@ -1634,17 +1884,17 @@ def render_html_content(
         return stats_html
 
     # 热榜区域（不含竞品词组，竞品词组在「竞品动态」板块展示）
-    stats_html = render_word_group_sections(hotlist_stats, with_tabs=True)
+    stats_html = render_word_group_sections(hotlist_stats, with_tabs=True, id_prefix="wg")
     if stats_html:
         stats_html = f"""
-                <div class="hotlist-section">{stats_html}
+                <div class="hotlist-section" id="region-hotlist">{stats_html}
                 </div>"""
 
     # 生成新增新闻区域的HTML
     new_titles_html = ""
     if show_new_section and report_data["new_titles"]:
         new_titles_html += f"""
-                <div class="new-section">
+                <div class="new-section" id="region-new">
                     <div class="new-section-title">本次新增热点 (共 {report_data['total_new_count']} 条)</div>
                     <div class="new-sources-grid">"""
 
@@ -1706,7 +1956,12 @@ def render_html_content(
                 </div>"""
 
     # 生成 RSS 统计内容
-    def render_rss_stats_html(stats: List[Dict], title: str = "RSS 订阅更新", bare: bool = False) -> str:
+    def render_rss_stats_html(
+        stats: List[Dict],
+        title: str = "RSS 订阅更新",
+        bare: bool = False,
+        section_id: str = "",
+    ) -> str:
         """渲染 RSS 统计区块 HTML
 
         Args:
@@ -1745,8 +2000,9 @@ def render_html_content(
             rss_html = """
                     <div class="rss-feeds-grid">"""
         else:
+            id_attr = f' id="{section_id}"' if section_id else ""
             rss_html = f"""
-                <div class="rss-section">
+                <div class="rss-section"{id_attr}>
                     <div class="rss-section-header">
                         <div class="rss-section-title">{title}</div>
                         <div class="rss-section-count">{total_count} 条</div>
@@ -1886,7 +2142,7 @@ def render_html_content(
                 all_groups.append({"name": f.get("name", f.get("id", "")), "count": len(items)})
 
         standalone_html = f"""
-                <div class="standalone-section">
+                <div class="standalone-section" id="region-standalone">
                     <div class="standalone-section-header">
                         <div class="standalone-section-title">独立展示区</div>
                         <div class="standalone-section-count">{total_count} 条</div>
@@ -2071,6 +2327,8 @@ def render_html_content(
 
     # 生成竞品动态板块：竞品词组的热榜命中 + RSS 命中合并展示
     competitor_html = ""
+    comp_total = 0
+    comp_rss_stats: List[Dict] = []
     if competitor_groups and display_mode == "keyword":
         comp_rss_stats = [s for s in (rss_items or []) if s.get("word") in competitor_groups]
         if rss_items and comp_rss_stats:
@@ -2085,12 +2343,12 @@ def render_html_content(
                 s.get("count", 0) for s in comp_rss_stats
             )
             competitor_html = f"""
-                <div class="rss-section competitor-section">
+                <div class="rss-section competitor-section" id="region-competitor">
                     <div class="rss-section-header">
                         <div class="rss-section-title">🎯 竞品动态</div>
                         <div class="rss-section-count">{comp_total} 条</div>
                     </div>"""
-            comp_hot_html = render_word_group_sections(comp_stats, with_tabs=False)
+            comp_hot_html = render_word_group_sections(comp_stats, with_tabs=False, id_prefix="cg")
             if comp_hot_html:
                 competitor_html += comp_hot_html
             if comp_rss_stats:
@@ -2099,14 +2357,26 @@ def render_html_content(
                 </div>"""
 
     # 生成 RSS 统计和新增 HTML
-    rss_stats_html = render_rss_stats_html(rss_items, "RSS 订阅更新") if rss_items else ""
-    rss_new_html = render_rss_stats_html(rss_new_items, "RSS 新增更新") if rss_new_items else ""
+    rss_stats_html = (
+        render_rss_stats_html(rss_items, "RSS 订阅更新", section_id="region-rss")
+        if rss_items
+        else ""
+    )
+    rss_new_html = (
+        render_rss_stats_html(rss_new_items, "RSS 新增更新", section_id="region-rss-new")
+        if rss_new_items
+        else ""
+    )
 
     # 生成独立展示区 HTML
     standalone_html = render_standalone_html(standalone_data)
 
-    # 生成 AI 分析 HTML
+    # 生成 AI 分析 HTML（外层包一层锚点容器，供左轨导航跳转）
     ai_html = render_ai_analysis_html_rich(ai_analysis) if ai_analysis else ""
+    if ai_html:
+        ai_html = f"""
+                <div id="region-ai">{ai_html}
+                </div>"""
 
     # 准备各区域内容映射
     region_contents = {
@@ -2171,6 +2441,9 @@ def render_html_content(
     html += """
                 </div>
             </div>
+        </div>
+        </div>
+        <!--ASIDE-->
         </div>
 
         <div class="fab-bar">
@@ -2374,6 +2647,42 @@ def render_html_content(
                         ticking = true;
                     }
                 });
+            }
+
+            // ===== 左轨导航：点击跳转 + 滚动监听高亮 =====
+            function initRailNav() {
+                var navItems = Array.from(document.querySelectorAll('.nav-item[data-spy-target]'));
+                if (!navItems.length) return;
+                navItems.forEach(function(btn) {
+                    btn.addEventListener('click', function() {
+                        var el = document.getElementById(btn.getAttribute('data-spy-target'));
+                        if (!el) return;
+                        // 宽屏 Tab 筛选下，目标词组可能被隐藏：先激活对应 Tab
+                        var ti = el.getAttribute('data-tab-index');
+                        if (ti !== null && document.body.classList.contains('wide-mode')) {
+                            var tabBtn = document.querySelector('.tab-bar .tab-btn[data-tab-index="' + ti + '"]');
+                            if (tabBtn) tabBtn.click();
+                        }
+                        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    });
+                });
+                var spyTicking = false;
+                function updateSpy() {
+                    var pos = window.scrollY + 140;
+                    var current = null;
+                    navItems.forEach(function(btn) {
+                        var el = document.getElementById(btn.getAttribute('data-spy-target'));
+                        if (el && el.offsetTop <= pos) current = btn;
+                    });
+                    navItems.forEach(function(btn) { btn.classList.toggle('on', btn === current); });
+                }
+                window.addEventListener('scroll', function() {
+                    if (!spyTicking) {
+                        requestAnimationFrame(function() { updateSpy(); spyTicking = false; });
+                        spyTicking = true;
+                    }
+                }, { passive: true });
+                updateSpy();
             }
 
             function initCollapse() {
@@ -2835,8 +3144,8 @@ def render_html_content(
                 lines.push('# ' + (headerTitle ? headerTitle.textContent.trim() : 'TrendRadar'));
                 lines.push('');
 
-                // 报告元信息
-                var infoItems = document.querySelectorAll('.header-info .info-item');
+                // 报告元信息（右栏统计卡片）
+                var infoItems = document.querySelectorAll('[data-stats] .info-item');
                 if (infoItems.length) {
                     infoItems.forEach(function(item) {
                         var label = item.querySelector('.info-label');
@@ -3078,6 +3387,7 @@ def render_html_content(
                 initBackToTop();
                 initCollapse();
                 initStandaloneTabs();
+                initRailNav();
 
                 // 键盘快捷键
                 document.addEventListener('keydown', function(e) {
@@ -3185,5 +3495,89 @@ def render_html_content(
     </body>
     </html>
     """
+
+    # ===== 组装左轨导航（板块目录 + 词组快速跳转）与右栏信息面板 =====
+    page_title = "行业日报" if mode == "daily" else "热点新闻分析"
+
+    def _nav_item(label: str, count: Any, target: str, sub: bool = False) -> str:
+        cls = "nav-item sub" if sub else "nav-item"
+        return (
+            f'<button class="{cls}" data-spy-target="{target}">'
+            f'<span class="dot"></span>{html_escape(str(label))}'
+            f'<span class="c">{html_escape(str(count))}</span></button>'
+        )
+
+    rail_nav = ""
+    rail_region_count = 0
+    hotlist_only_count = sum(s.get("count", 0) for s in hotlist_stats)
+    rss_region_count = sum(s.get("count", 0) for s in (rss_items or []))
+    standalone_total = 0
+    if standalone_data:
+        standalone_total = sum(
+            len(p.get("items", [])) for p in standalone_data.get("platforms", [])
+        ) + sum(len(f.get("items", [])) for f in standalone_data.get("rss_feeds", []))
+
+    for region in region_order:
+        if region == "competitor" and competitor_html:
+            rail_nav += _nav_item("竞品动态", comp_total, "region-competitor")
+            rail_region_count += 1
+            for nav_i, nav_s in enumerate(comp_stats, 1):
+                rail_nav += _nav_item(
+                    nav_s["word"], nav_s["count"], f"cg-{nav_i}", sub=True
+                )
+        elif region == "hotlist" and stats_html:
+            rail_nav += _nav_item("热点新闻", hotlist_only_count, "region-hotlist")
+            rail_region_count += 1
+            for nav_i, nav_s in enumerate(hotlist_stats, 1):
+                rail_nav += _nav_item(
+                    nav_s["word"], nav_s["count"], f"wg-{nav_i}", sub=True
+                )
+        elif region == "rss" and rss_stats_html:
+            rail_nav += _nav_item("RSS 订阅", rss_region_count, "region-rss")
+            rail_region_count += 1
+        elif region == "new_items" and (new_titles_html or rss_new_html):
+            new_target = "region-new" if new_titles_html else "region-rss-new"
+            rail_nav += _nav_item("新增热点", total_new, new_target)
+            rail_region_count += 1
+        elif region == "standalone" and standalone_html:
+            rail_nav += _nav_item("独立展示", standalone_total, "region-standalone")
+            rail_region_count += 1
+        elif region == "ai_analysis" and ai_html:
+            rail_nav += _nav_item("AI 分析", ai_value, "region-ai")
+            rail_region_count += 1
+
+    rail_html = f"""
+        <aside class="rail">
+            <div class="brand"><span class="mk">报</span><b>{page_title}</b><span class="dt">{now.strftime("%m-%d")}</span></div>
+            <nav class="rail-scroll">
+                <div class="rail-grp">板块<span class="c">{rail_region_count}</span></div>
+                {rail_nav}
+            </nav>
+            <div class="rail-foot">
+                TrendRadar · <a href="https://github.com/sansan0/TrendRadar" target="_blank">GitHub</a><br>
+                热榜 × RSS × AI
+            </div>
+        </aside>"""
+
+    aside_html = f"""
+        <aside class="aside">
+            <div class="aside-card">
+                <div class="ch">今日概览<span class="tag">{now.strftime("%Y-%m-%d")}</span></div>
+                <div class="cb" data-stats="overview">{overview_items}
+                </div>
+            </div>
+            <div class="aside-card">
+                <div class="ch">监控覆盖</div>
+                <div class="cb" data-stats="coverage">{coverage_items}
+                </div>
+            </div>
+            <div class="receipt-line">
+                快捷键：W 宽屏 · D 暗色 · / 搜索 · ? 帮助<br>
+                由 TrendRadar 自动生成
+            </div>
+        </aside>"""
+
+    html = html.replace("<!--RAIL-->", rail_html)
+    html = html.replace("<!--ASIDE-->", aside_html)
 
     return html
